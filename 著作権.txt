@@ -1,0 +1,552 @@
+本作品は、ななあし氏によって開発された戦略シミュレーションゲーム
+「ヴァーレントゥーガ」の拡張シナリオです。
+ヴァーレントゥーガ本体の著作権はななあし氏に帰属します。
+
+また、本作品には歴史的資料および戦争関連のシンボルが含まれます。
+一部の素材は国や地域によって取扱いが制限されている場合があります。
+
+//ソフトウェア
+GuruGuruSMF4 — Standard MIDI File loop playback DLL
+Copyright (c) 2010–2024 卯如 (Uwaki)
+All rights reserved.
+URL: https://gurugurusmf.migmig.net
+
+DirectX End-User Runtime (June 2010)
+Copyright (c) 2010 Microsoft Corporation. All rights reserved.
+URL: https://www.microsoft.com/en-us/download/details.aspx?id=35
+Note: 本作品では d3dx9_35.dll を含む DirectX の DLL を直接配布していません。
+DLL は Microsoft の公式インストーラーを通じてユーザー自身にインストールしていただく必要があります。
+
+//フォント
+Google Fonts --------------------------------------------------------------------
+
+Licence: SIL Open Font License (OFL) version 1.1
+Deed: https://scripts.sil.org/OFL
+
+Noto Sans JP
+Source: Google Fonts
+License: SIL Open Font License (OFL) version 1.1
+URL: https://fonts.google.com/noto/specimen/Noto+Sans+JP
+
+Gutenberg Lago ------------------------------------------------------------------
+
+Licence: SIL Open Font License (OFL) version 1.1
+Deed: https://scripts.sil.org/OFL
+
+GL Star Taker  
+Designer: Gutenberg Labo  
+License: SIL Open Font License (OFL) version 1.1
+URL: https://github.com/gutenberg-labo/ 
+
+Steffmann -----------------------------------------------------------------------
+
+License: Free for commercial use
+
+English Towne  
+Designer: Dieter Steffmann
+License: Free for commercial use
+URL: http://www.steffmann.de/  
+
+//グラフィック
+Wikimedia Commons ---------------------------------------------------------------
+
+License: 
+Creative Commons Attribution-Share Alike 4.0 International
+Deed: https://creativecommons.org/licenses/by-sa/4.0/
+
+Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+Deed: https://creativecommons.org/licenses/by-sa/3.0/deed.en
+
+Creative Commons Attribution-ShareAlike 2.0 Generic
+Deed: https://creativecommons.org/licenses/by-sa/2.0/deed.en
+
+Public domain (official symbol, §5 UrhG - German copyright law) 
+
+"Rückzug" (fresco at the Rathaus Schöneberg, Bürgersaal, Berlin)  
+by Franz Eichhorst (ca. 1935–1938)
+Modifications: upscaled and resized.
+License: Creative Commons Attribution-ShareAlike 4.0 International
+URL: https://commons.wikimedia.org/wiki/File:Ei15_FRANZ_EICHHORST_1885%E2%80%931948_war_painter_Rathaus_Berlin-Sch%C3%B6neberg_B%C3%BCrgersaal_fresco_1935%E2%80%9338_Nazi_propaganda_%22R%C3%BCckzug%22_Galleria.thule-italia.com_No_known_copyright_restrictions.jpg
+
+Ludwig HOHLWEIN Telegramm Schmucktelegramm Deutsche Reichspost NSDAP propaganda Reichsadler Nürnberg Decorative telegram Hitler in open car Nuremberg Castle parading SA men Cover of four page folder No known copyright restrictions.jpg
+Source: Wikimedia Commons
+License: Creative Commons Attribution-Share Alike 4.0 International
+URL: https://commons.wikimedia.org/wiki/File:Ludwig_HOHLWEIN_Telegramm_Schmucktelegramm_Deutsche_Reichspost_NSDAP_propgandana_Reichsadler_N%C3%BCrnberg_Decorative_telegram_Hitler_in_open_car_Nuremberg_Castle_parading_SA_men_Cover_of_four_page_folder_No_known_copyright_restrictions.jpg
+
+John Singer Sargent – The Road – 19.759 – Museum of Fine Arts
+Source: Wikimedia Commons  
+License: Public domain (faithful reproduction of a public domain artwork)  
+URL: https://commons.wikimedia.org/wiki/File:John_Singer_Sargent_-_The_Road_-_19.759_-_Museum_of_Fine_Arts.jpg
+
+John Singer Sargent – Poppies (11425224076)
+Source: Wikimedia Commons  
+License: Creative Commons Attribution 2.0 Generic (CC BY 2.0) :contentReference[oaicite:0]{index=0}  
+URL: https://commons.wikimedia.org/wiki/File:John_Singer_Sargent_-_Poppies_(11425224076).jpg
+
+Hans_Larwin_-_Soldat_und_Tod_-_1917
+Source: Wikimedia Commons
+License: Public domain
+URL: https://commons.wikimedia.org/wiki/File:Hans_Larwin_-_Soldat_und_Tod_-_1917.jpg
+
+Berlin 1937 Unter den Linden im Festschmuck
+Photographer: Bundesarchiv
+License: Creative Commons Attribution-ShareAlike 2.0 Generic
+Modifications: upscaled and resized.
+URL: https://commons.wikimedia.org/wiki/File:Berlin_1937_Unter_den_Linden_im_Festschmuck_(49977124877).jpg
+
+Bundesarchiv Bild 183-E00418, Berlin, Neue Reichskanzlei
+Photographer: Heinrich Hoffmann
+Modifications: upscaled and resized.
+License: Creative Commons Attribution-ShareAlike 3.0 Germany (CC BY-SA 3.0 DE)
+URL: https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-E00418,_Berlin,_Neue_Reichskanzlei.jpg
+
+undesarchiv Bild 183-K1216-501, Berlin, Neue Reichskanzlei, Marmorgalerie
+Photographer: Heinrich Hoffmann
+Modifications: upscaled and resized.
+License: Creative Commons Attribution-ShareAlike 3.0 Germany (CC BY-SA 3.0 DE)
+URL: https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-K1216-501,_Berlin,_Neue_Reichskanzlei,_Marmorgalerie.jpg
+
+Bundesarchiv Bild 183-H26035, Berlin, Neue Reichskanzlei, Arbeitszimmer Hitlers
+Photographer: Heinrich Hoffmann
+Modifications: upscaled and resized.
+License: Creative Commons Attribution-ShareAlike 3.0 Germany (CC BY-SA 3.0 DE)
+URL: https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-H26035,_Berlin,_Neue_Reichskanzlei,_Arbeitszimmer_Hitlers.jpg
+
+Palazzo Venezia Roma 11
+Source: Wikimedia Commons
+License: Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+URL: https://commons.wikimedia.org/wiki/File:Palazzo_Venezia_Roma_11.JPG
+
+Versailles
+Photographer: Berit Wallenberg
+Modifications: upscaled and resized.
+License: Public domain in Sweden
+URL: https://commons.wikimedia.org/wiki/File:Versailles_-_KMB_-_16001000101908.jpg
+
+Château de Versailles, bureau du président du Congrès
+Photographer: Agence Rol
+Modifications: upscaled and resized.
+License: Public Domain Mark 1.0
+URL: https://commons.wikimedia.org/wiki/File:Ch%C3%A2teau_de_Versailles,_bureau_du_pr%C3%A9sident_du_Congr%C3%A8s.jpg
+
+View of Tula Kremlin in the 1930s
+License: Unknown
+Modifications: upscaled and resized.
+License: Public domain in Russia
+URL: https://commons.wikimedia.org/wiki/File:View_of_Tula_Kremlin_in_the_1930s.jpg
+
+Flag of Germany (1935–1945)
+Source: Wikimedia Commons  
+License: Public domain (official symbol, §5 UrhG - German copyright law)  
+URL: https://commons.wikimedia.org/wiki/File:Flag_of_Germany_(1935%E2%80%931945).svg
+
+Standarte für die Leibstandarte SS Adolf Hitler 1940.svg
+Source: Wikimedia Commons
+License: Public domain (official symbol, §5 UrhG - German copyright law)  
+URL: https://commons.wikimedia.org/wiki/File:Standarte_f%C3%BCr_die_Leibstandarte_SS_Adolf_Hitler_1940.svg
+
+German_Cross
+Source: Wikimedia Commons  
+License: Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) :contentReference[oaicite:0]{index=0}  
+URL: https://commons.wikimedia.org/wiki/File:German_Cross.svg
+
+Reichsadler Deutsches Reich (1935–1945)
+Source: Wikimedia Commons  
+License: Public domain (official symbol, §5 UrhG - German copyright law)  
+URL: https://commons.wikimedia.org/wiki/File:Reichsadler_Deutsches_Reich_(1935%E2%80%931945)
+
+Organisationsbuch der NSDAP 1943, p.417 (SS dagger "Meine Ehre heißt Treue")
+Source: Wikimedia Commons
+License: Creative Commons Attribution-Share Alike 4.0 International
+URL: https://commons.wikimedia.org/wiki/File:Organisationsbuc00nati_0_orig_0623_ORGANISATIONSBUCH_DER_NSDAP_1943_Seite_417_Schutzstaffel_SS_Die_Schutzstaffeln_der_NSDAP_(dagger_with_%22Meine_Ehre_heisst_Treue%22)_cropped_dagger%2Bskull_contrast.jpg
+
+S SS-Pz Abt 101
+Source: Wikimedia Commons
+License: Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+URL: https://commons.wikimedia.org/wiki/File:S_SS-Pz_Abt_101.jpg
+
+1. SS-Panzer-Division Leibstandarte-SS Adolf Hitler
+Source: Wikimedia Commons
+License: Public domain (official symbol, §5 UrhG - German copyright law) 
+URL: https://commons.wikimedia.org/wiki/File:1._SS-Panzer-Division_Leibstandarte-SS_Adolf_Hitler.svg
+
+SS-Panzer-Division_symbol
+Source: Wikimedia Commons
+License: Public domain (official symbol, §5 UrhG - German copyright law) 
+URL: https://commons.wikimedia.org/wiki/File:SS-Panzer-Division_symbol.svg
+
+3rd_SS_Division_Logo
+Source: Wikimedia Commons
+License: Public domain (official symbol, §5 UrhG - German copyright law) 
+URL: https://commons.wikimedia.org/wiki/File:3rd_SS_Division_Logo.svg
+
+Emblem_of_Italian_Blackshirts
+Source: Wikimedia Commons
+License: Creative Commons Attribution-Share Alike 4.0 International
+URL: https://commons.wikimedia.org/wiki/File:Emblem_of_Italian_Blackshirts.svg
+
+1a_Divisione_CC.NN._23_Marzo
+Source: Wikimedia Commons
+License: Creative Commons Attribution-Share Alike 4.0 International
+URL: https://commons.wikimedia.org/wiki/File:1a_Divisione_CC.NN._23_Marzo.png
+
+2a_Divisione_CC.NN._28_Ottobre
+Source: Wikimedia Commons
+License: Creative Commons Attribution-Share Alike 4.0 International
+URL: https://commons.wikimedia.org/wiki/File:2a_Divisione_CC.NN._28_Ottobre.png
+
+3a_Divisione_CC.NN._21_Aprile
+Source: Wikimedia Commons
+License: Creative Commons Attribution-Share Alike 4.0 International
+URL: https://commons.wikimedia.org/wiki/File:3a_Divisione_CC.NN._21_Aprile.png
+
+4a_Divisione_CC.NN._3_Gennaio
+Source: Wikimedia Commons
+License: Creative Commons Attribution-Share Alike 4.0 International
+URL: https://commons.wikimedia.org/wiki/File:4a_Divisione_CC.NN._3_Gennaio.png
+
+Bundesarchiv Bild 146‑1980‑053‑53, Sprengpanzer "Goliath"
+Source: Wikimedia Commons  
+License: Creative Commons Attribution‑ShareAlike 3.0 Germany (CC BY‑SA 3.0 de)  
+URL: https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_146-1980-053-53,_Sprengpanzer_%22Goliath%22.jpg
+
+LK P.1500 Monster
+Source: Wikimedia Commons  
+License: Creative Commons Attribution‑ShareAlike 4.0 International (CC BY‑SA 4.0)  
+URL: https://commons.wikimedia.org/wiki/File:LK_P.1500_Monster.gif  
+
+
+//サウンド
+Imperial War Museum (IWM) -------------------------------------------------------
+
+License: Non-Commercial licence, fair dealing licence
+URL: https://www.iwm.org.uk/collections/
+
+Die Fahne Hoch [Raise the Flag], Horst Wessel Lied
+Sound: © IWM (34678)
+Source: Imperial War Museum
+License: Non-Commercial licence
+URL: https://www.iwm.org.uk/collections/item/object/80033942
+
+Die Fahne Hoch
+Sound: © IWM (15571). The beginning of the recording, which included an archival reference spoken for cataloging purposes, has been removed. The content remains otherwise unaltered.
+Source: Imperial War Museum
+License: Non-Commercial licence
+URL: https://www.iwm.org.uk/collections/item/object/80015099
+
+Marching and Singing: Songs and Marches From Nazi Germany, 1933-1945
+Sound: © IWM (24738)
+Source: Imperial War Museum
+License: Non-Commercial licence
+URL: https://www.iwm.org.uk/collections/item/object/80023568
+
+Benito Mussolini: I Discorsi dell' Impero, 1935-1936: Inno a Roma
+Sound: © IWM (34581). The beginning of the recording, which included an archival reference spoken for cataloging purposes, has been removed. The content remains otherwise unaltered.
+Source: Imperial War Museum
+License: fair dealing licence
+URL: https://www.iwm.org.uk/collections/item/object/80033692
+
+Benito Mussolini: I Discorsi dell' Impero, 1935-1936: Marcia Reale Italiana
+Sound: © IWM (34579). The beginning of the recording, which included an archival reference spoken for cataloging purposes, has been removed. The content remains otherwise unaltered.
+Source: Imperial War Museum
+License: fair dealing licence
+URL: https://www.iwm.org.uk/collections/item/object/80033690
+
+Internet Archive (IA) -----------------------------------------------------------
+
+License: Public Domain Mark 1.0 Universal  
+Deed: https://creativecommons.org/publicdomain/mark/1.0/  
+
+Recording title: The Military Music of Adolf Hitler's Third Reich
+Performer: Various German military bands (uncredited)
+Original format: Compilation
+Source: Archive.org
+Collection: German Military Marches
+License: Public Domain Mark 1.0 Universal
+URL: https://archive.org/details/GermanMilitaryMarches/The+Military+Music+Of+Adolf+Hitler's+Third+Reich+CD+1
+
+Recording title: Tino Rossi Collection 1933–1937
+Performer: Tino Rossi
+Original: Compilation of 78rpm recordings
+Source: Archive.org
+Collection: Tino Rossi 1933–1937
+License: Public Domain Mark 1.0 Universal
+URL: https://archive.org/details/TinoRossiCollection1933-1937
+
+78rpm Collection  (1920s 1930s Popular Music)
+Original format: 78rpm record
+Source: Archive.org
+License: Public Domain Mark 1.0 Universal
+URL: https://archive.org/details/78rpmCollection1920s1930sPopularMusic
+
+78rpm Collection (1920s 1930s Popular Music) Edison Popular Series
+Original format: 78rpm record
+Source: Archive.org
+License: Public Domain Mark 1.0 Universal
+URL: https://archive.org/details/78rpmCollection1920s1930sPopularMusicEdisonPopularSeries
+
+78rpm Collection (1920s 1930s Popular Music) Part 10
+Original format: 78rpm record
+Source: Archive.org
+License: Public Domain Mark 1.0 Universal
+URL: https://archive.org/details/78rpmCollection1920s1930sPopularMusicPart10
+
+78rpm Collection (1920s 1930s Popular Music) PAUL SMALL
+Original format: 78rpm record
+Source: Archive.org
+License: Public Domain Mark 1.0 Universal
+URL: https://archive.org/details/78rpmCollection1920s1930sPopularMusicPAULSMALL
+
+The Great 78 Project -----------------------------------------------------------
+URL: https://great78.archive.org/
+
+「Great 78 Project」は、Internet Archive と ARChive of Contemporary Music、George Blood, L.P. などの提携により実施されている保存プロジェクトであり、
+主に1900年代初期の 78rpm レコードをデジタル化・公開しています。
+
+これらの音源は、以下の理由から通常パブリックドメインとして扱われます：
+
+- 多くが1925年以前に録音・出版された音源であり、米国著作権法における保護期間（録音の場合最大100年）をすでに経過していること
+
+- Great 78 Projectによって公開されている多くの音源は、Public Domain Mark 1.0 または「ライセンス不明だが事実上パブリックドメイン」として扱われていること
+
+- 個別にライセンスが明記されていない場合でも、上記の理由により非商用利用・研究目的・教育利用等での自由使用が許容されていること
+
+なお、本資料に含まれる音源の多くは米国著作権法において既にパブリックドメインとされており（特に1923年以前）、
+また日本においても1955年以前の録音である場合、保護期間を経過している可能性が高いことから、一般的に利用可能と解釈されます。(2025年現在)
+利用に際しては、出典明記や編集内容の記載など、適切な帰属表示を行っています。
+
+Wikimedia Commons ---------------------------------------------------------------
+
+License:
+Public Domain Mark 1.0 Universal
+Deed: https://creativecommons.org/publicdomain/mark/1.0/deed.en
+
+Creative Commons Attribution-Share Alike 3.0 Unported
+Deed: https://creativecommons.org/licenses/by-sa/3.0/deed.en
+
+Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+Deed: https://creativecommons.org/licenses/by-sa/4.0/deed.en
+
+Public Domain (U.S. Government Work, 17 U.S.C. §105)
+
+Horst Wessel-Lied Instrumental
+Source: Wikimedia Commons
+License: Public domain
+URL: https://commons.wikimedia.org/wiki/File:Horst_Wessel-Lied_Instrumental.mp3
+
+Песня Хорста Весселя
+Source: Wikimedia Commons
+License: Public domain
+URL: https://commons.wikimedia.org/wiki/File:%D0%9F%D0%B5%D1%81%D0%BD%D1%8F_%D0%A5%D0%BE%D1%80%D1%81%D1%82%D0%B0_%D0%92%D0%B5%D1%81%D1%81%D0%B5%D0%BB%D1%8F.ogg?uselang=ja
+
+Giovinezza (instrumental)
+Source: Wikimedia Commons
+License: Public domain
+URL: https://commons.wikimedia.org/wiki/File:Giovinezza_(instrumental).ogg
+
+Giovinezza
+Source: Wikimedia Commons
+License: Public domain
+URL: https://commons.wikimedia.org/wiki/File:Giovinezza.ogg
+
+Funiculì funiculà
+Source: Wikimedia Commons
+License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+URL: https://commons.wikimedia.org/wiki/File:Funicul%C3%AC_funicul%C3%A0.ogg
+
+'Rule, Britannia!' (United States Army Strings).oga
+Source: Wikimedia Commons
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+URL: https://commons.wikimedia.org/wiki/File:'Rule,_Britannia!_(United_States_Army_Strings).oga
+
+British Grenadiers & Here's to the Maiden
+Source: Wikimedia Commons
+License: Public domain (Canadian Government work / Crown copyright)
+URL: https://commons.wikimedia.org/wiki/File:British_Grenadiers_%26_Here%27s_to_the_Maiden.ogg
+
+Albert Farrington - It's a Long Long Way to Tipperary - 1915 - remastered.oga
+Source: Wikimedia Commons
+License: Public domain (U.S. Government work / Crown copyright)
+URL: https://commons.wikimedia.org/wiki/File:Albert_Farrington_-_It%27s_a_Long_Long_Way_to_Tipperary_-_1915_-_remastered.oga
+
+Rind nu op i Jesu navn
+Source: Wikimedia Commons
+License: Public domain
+URL: https://commons.wikimedia.org/wiki/File:Rind_nu_op_i_Jesu_navn.ogg
+
+Jean-Baptiste Lully - Marche française.ogg
+Source: Wikimedia Commons
+License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+URL: https://commons.wikimedia.org/wiki/File:Jean_Baptiste_Lully_-_Marche_fran%C3%A7aise.ogg
+
+Internationale
+Source: Wikimedia Commons
+License: Creative Commons Attribution-Share Alike 3.0 Unported
+URL: https://commons.wikimedia.org/wiki/File:Internationale.ogg
+
+Svyaschennaya_Voyna_vocal
+Source: Wikimedia Commons
+License: Public domain
+URL: https://commons.wikimedia.org/wiki/File:Svyaschennaya_Voyna_vocal.ogg
+
+Farewell of Slavianka (stereo)
+Source: Wikimedia Commons
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+URL: https://commons.wikimedia.org/wiki/File:Farewell_of_Slavianka_(stereo).ogg
+
+Kevin MacLeod - P. I. Tchaikovsky: Dance of the Sugar Plum Fairy
+Source: Wikimedia Commons
+License: Creative Commons Attribution 3.0 Unported (CC BY 3.0)
+URL: https://commons.wikimedia.org/wiki/File:Kevin_MacLeod_-_P_I_Tchaikovsky_Dance_of_the_Sugar_Plum_Fairy.ogg
+
+Recording title: When Johnny Comes Marching Home
+Performer: United States Military Academy Band
+Source: Wikimedia Commons
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+URL: https://commons.wikimedia.org/wiki/File:When_Johnny_Comes_Marching_Home_-_USMA_Band.ogg
+
+Chopin - Preludes, Op. 28 - No. 20 “Funeral March"
+Source: Wikimedia Commons  
+License: Creative Commons Attribution 3.0 Unported (CC BY 3.0)  
+URL: https://commons.wikimedia.org/wiki/File:Chopin_-_Preludes,_Op._28_-_No._20_%27Funeral_march%27.ogg
+
+Funeral March Chopin Op_72_2
+Source: Wikimedia Commons  
+License: Public domain (Creative Commons CC0 1.0 Universal)  
+URL: https://commons.wikimedia.org/wiki/File:Funeral_March_Chopin_Op_72_2.ogg 
+
+Explosion_10
+Source: Wikimedia Commons  
+License: Public domain  
+URL: https://commons.wikimedia.org/wiki/File:Explosion_10.ogg
+
+Ju_87_Stuka_attack
+Source: Wikimedia Commons  
+License: Public Domain Mark 1.0 Universal
+URL: https://commons.wikimedia.org/wiki/File:Ju_87_Stuka_attack.ogv  
+
+Wikibooks -----------------------------------------------------------------------
+
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+
+Recording title: Badonviller
+Performer: The President's Own United States Marine Band
+Modifications: beginning of the recording trimmed
+Source: Wikibooks
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+URL: https://ja.m.wikibooks.org/wiki/ファイル:Badonviller_-_U.S._Marine_Band.ogg
+
+IMSLP (International Music Score Library Project) --------------------------------
+
+License: Creative Commons Attribution‑ShareAlike 4.0 International (CC BY‑SA 4.0)
+Deed: https://creativecommons.org/licenses/by-sa/4.0/deed.en
+
+Lieder ohne Worte, Op. 62 (Felix Mendelssohn)  
+Source: IMSLP – International Music Score Library Project  
+License: Creative Commons Attribution‑ShareAlike 4.0 International (CC BY‑SA 4.0) 
+URL: https://imslp.org/wiki/Lieder_ohne_Worte%2C_Op.+62_(Mendelssohn%2C_Felix)#IMSLP880902
+
+The U.S. Army Band "Pershing's Own" ---------------------------------------------
+
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+
+Recording title: Ceremonial Music Guide
+Performer: The U.S. Army Band "Pershing's Own"
+Source: U.S. Army
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+URL: https://usarmyband.com/ceremonial-music-guide
+
+United States Navy Band ---------------------------------------------------------
+
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+
+Recording title: Ceremonial Music
+Performer: United States Navy Band
+Source: U.S Navy
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+URL: https://www.navyband.navy.mil/media/ceremonial
+
+U.S. Air Force Band -------------------------------------------------------------
+
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+
+Recording title: The Ceremonial Brass,Concert Band
+Performer: U.S. Air Force Band
+Source: U.S. Air Force Band
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+URL: https://www.music.af.mil/Multimedia/AF-Recordings/Ceremonial-Music/
+
+Recording title: Adjuant's Call, C.M.T.C. March 
+Performer: U.S. Air Force Band
+Source: U.S. Air Force Band
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+URL: https://www.music.af.mil/Multimedia/AF-Recordings/Ceremonial-Music/
+
+Recording title: Liberty Fanfare
+Performer: U.S. Air Force Band
+Source: U.S. Air Force Band
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+URL: https://www.music.af.mil/Multimedia/AF-Recordings/Ceremonial-Music/
+
+Recording title: Public Domain Music
+Source: U.S. Air Force Band
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+URL: https://www.music.af.mil/Multimedia/AF-Recordings/Public-Domain-Music/
+
+
+United States Marine Band -------------------------------------------------------
+
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+
+Recording title: Marine Corps Birthday Ball (Audio)
+Performer: United States Marine Band
+Source: U.S. Marine
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+URL: https://www.marineband.marines.mil/Audio-Resources/Ceremonial-Music/
+
+Recording title: The Complete Marches of John Philip Sousa
+Performer: United States Marine Band
+Source: U.S. Marine
+License: Public Domain (U.S. Government Work, 17 U.S.C. §105)
+URL: https://www.marineband.marines.mil/Audio-Resources/The-Complete-Marches-of-John-Philip-Sousa/
+
+Ministry of Defense / Japan Ground Self‑Defense Force (JGSDF) -------------------
+
+Recording title: 陸軍分列行進曲
+Source: Ministry of Defense website (JGSDF)  
+License: Free to use under the Terms of Use of the Ministry of Defense of Japan 
+URL: https://www.mod.go.jp/gsdf/fan/sound/index.html
+
+Recording title: 君が代行進曲
+Source: Ministry of Defense website (JGSDF)  
+License: Free to use under the Terms of Use of the Ministry of Defense of Japan 
+URL: https://www.mod.go.jp/gsdf/fan/sound/index.html
+
+Japan Maritime Self-Defense Force Tokyo Band ------------------------------------
+
+Recording title: 軍艦行進曲
+Source: Japan Maritime Self-Defense Force Tokyo Band
+License: Free to use under the Terms of Use of the Ministry of Defense of Japan 
+URL: https://www.mod.go.jp/msdf/tokyoband/gunkan.html
+
+Pixabay -------------------------------------------------------------------------
+
+Recording title: Nuclear Explosion
+Source: Pixabay
+License: Pixabay Content License (free for commercial and non-commercial use with restrictions)
+URL: https://pixabay.com/ja/sound-effects/nuclear-explosion-386181/
+
+Recording title: short-gas-leak
+Source: Pixabay
+License: Pixabay Content License (free for commercial and non-commercial use with restrictions)
+URL: https://pixabay.com/ja/sound-effects/short-gas-leak-98286/
+
+Springin ------------------------------------------------------------------------
+
+License: Free to use for commercial and non-commercial projects. No attribution required. Redistribution and use in NFTs are prohibited.
+URL: https://www.springin.org/sound-stock/
+
+音人 ----------------------------------------------------------------------------
+
+License: Free for personal, circle, school, and volunteer use. Commercial or business use requires prior contact.
+URL: https://on-jin.com/sound/sen.php
