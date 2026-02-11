@@ -585,6 +585,70 @@
           text-align: center;
         }
       }
+
+      /* --- スマホ版（768px以下）：スクロールを許可し、美しく見せる --- */
+      @media screen and (max-width: 768px) {
+        #entranceOverlay {
+          /* 1. 固定を維持しつつ、中身が溢れたらスクロールさせる */
+          overflow-y: auto !important;
+          /* 2. iOSなどのスマホで滑らかなスクロールを強制 */
+          -webkit-overflow-scrolling: touch;
+          /* 3. 上下の配置を「中央固定」から「上端基準」に変えて、下へ流れるようにする */
+          align-items: flex-start !important;
+          padding-top: 60px !important; /* スクロール開始位置の余白 */
+          padding-bottom: 80px !important; /* 最後の項目が隠れないための余白 */
+        }
+
+        .entrance-inner {
+          /* 4. PC版のmax-widthを維持しつつ、縦に自由に伸びるようにする */
+          height: auto !important;
+          max-width: 400px !important;
+          margin: 0 auto !important;
+        }
+
+        /* 5. メニュー項目（ボタン）が増えた場合の間隔調整 */
+        .ent-enter-btn {
+          margin-bottom: 15px !important; /* 項目同士がくっつかないように */
+        }
+      }
+
+      /* --- スマホ版（768px以下）：展開メニューのスクロール化 --- */
+      @media screen and (max-width: 768px) {
+        /* メニュー全体のコンテナ */
+        .mobile-menu {
+          position: fixed !important;
+          inset: 0 !important;
+          background: #000 !important;
+          z-index: 999999 !important;
+
+          /* スクロールを許可する設定 */
+          overflow-y: auto !important;
+          -webkit-overflow-scrolling: touch; /* iOSの滑らかな操作用 */
+
+          /* レイアウト：中央寄せをやめ、上から順に並べる */
+          display: flex !important;
+          flex-direction: column !important;
+          justify-content: flex-start !important;
+          align-items: center !important;
+
+          /* 上下の余白：ロゴや最後の項目が隠れないように調整 */
+          padding-top: 80px !important;
+          padding-bottom: 60px !important;
+        }
+
+        /* 各メニュー項目 */
+        .menu-item {
+          margin-bottom: 30px !important; /* 項目間の適度な隙間 */
+          flex-shrink: 0 !important; /* 項目が潰れないように固定 */
+        }
+
+        /* 文字サイズ：項目が多い場合は少しだけ小さくして一覧性を確保 */
+        .menu-link {
+          font-family: "UnifrakturMaguntia", serif !important;
+          font-size: 28px !important;
+          color: #ff0000 !important;
+        }
+      }
     </style>
   </head>
 
