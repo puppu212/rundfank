@@ -1,985 +1,732 @@
 <!doctype html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    />
-    <title>Rundfunk</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cormorant+Garamond:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --bg: #000;
-        --accent: #ff0000;
-        --sidebar-w: 320px;
-        --f-deco: "UnifrakturMaguntia", serif;
-        --f-main: "Cormorant Garamond", serif;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Rundfunk</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cormorant+Garamond:wght@300;400;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* --- Base Styles --- */
+    :root {
+      --bg: #000;
+      --accent: #ff0000;
+      --sidebar-w: 320px;
+      --f-deco: "UnifrakturMaguntia", serif;
+      --f-main: "Cormorant Garamond", serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: #fff;
+      font-family: var(--f-main);
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* --- Layout --- */
+    .app-container {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .sidebar {
+      background: var(--bg);
+      border-right: 1px solid #111;
+      padding: 60px 40px;
+      z-index: 1000;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      height: 100vh;
+    }
+
+    .logo {
+      font-family: var(--f-deco);
+      font-size: 48px;
+      color: var(--accent);
+      margin-bottom: 60px;
+    }
+
+    .pc-nav {
+      list-style: none;
+    }
+
+    .alb-link {
+      margin-bottom: 25px;
+      font-size: 19px;
+      cursor: pointer;
+      transition: 0.4s;
+      opacity: 0.4;
+    }
+
+    .alb-link.active {
+      opacity: 1;
+      color: var(--accent);
+      transform: translateX(10px);
+    }
+
+    /* --- Main View --- */
+    .main-view {
+      position: relative;
+      overflow-y: auto;
+      padding-bottom: 150px;
+      background: #000;
+      height: 100vh;
+    }
+
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 55vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 10% 80px;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.3;
+      filter: grayscale(1);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 0%, #000 98%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+    }
+
+    .hero-content .meta {
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 8px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .hero-content h1 {
+      font-family: var(--f-deco);
+      font-size: 88px;
+      line-height: 0.95;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+
+    .track-list {
+      padding: 0 10%;
+      margin-top: 40px;
+    }
+
+    .track-row {
+      border-bottom: 1px solid #111;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 22px 20px;
+      transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    }
+
+    .track-row:hover {
+      background: rgba(255, 0, 0, 0.05);
+      padding-left: 35px;
+    }
+
+    .track-num {
+      width: 50px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .track-n {
+      font-size: 24px;
+      color: #eee;
+      flex-grow: 1;
+      font-weight: 300;
+    }
+
+    .is-playing .track-num,
+    .is-playing .track-n {
+      color: var(--accent) !important;
+      font-style: italic;
+    }
+
+    /* --- Mobile Controls --- */
+    .mobile-header {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9000;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      border-bottom: 1px solid #111;
+    }
+
+    .logo-m {
+      font-family: var(--f-deco);
+      font-size: 24px;
+      color: var(--accent);
+      transition: 0.3s;
+    }
+
+    .menu-trigger {
+      display: none;
+      width: 30px;
+      height: 24px;
+      position: fixed;
+      top: 23px;
+      right: 25px;
+      cursor: pointer;
+      z-index: 11000;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .bar {
+      height: 1.5px;
+      background: var(--accent);
+      transition: 0.5s;
+      position: absolute;
+    }
+
+    .bar-1 {
+      top: 7px;
+      width: 14px;
+    }
+
+    .bar-2 {
+      bottom: 7px;
+      width: 26px;
+    }
+
+    .menu-trigger.active .bar-1 {
+      width: 26px;
+      transform: translateY(4.5px) rotate(45deg);
+    }
+
+    .menu-trigger.active .bar-2 {
+      width: 26px;
+      transform: translateY(-4.5px) rotate(-45deg);
+    }
+
+    /* --- Player Bar --- */
+    .player-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 110px;
+      background: #050505;
+      border-top: 1px solid #111;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 12000;
+    }
+
+    .progress-rail {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #111;
+      cursor: pointer;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+    }
+
+    .info {
+      width: 300px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .art-thumb {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border: 1px solid #222;
+    }
+
+    .song-info div {
+      font-family: var(--f-main);
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .play-main {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .btn-func {
+      background: none;
+      border: none;
+      color: var(--accent);
+      cursor: pointer;
+      opacity: 0.4;
+    }
+
+    .btn-func.active {
+      opacity: 1;
+    }
+
+    .btn-skip {
+      background: none;
+      border: none;
+      color: #444;
+      cursor: pointer;
+    }
+
+    .extra-ctrl {
+      width: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 20px;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 70px;
+      height: 2px;
+      background: #222;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* --- Entrance Screen --- */
+    #entranceOverlay {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1s ease;
+    }
+
+    .entrance-inner {
+      text-align: center;
+      width: 90%;
+      max-width: 450px;
+      animation: entFadeUp 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes entFadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(10px);
       }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        background: var(--bg);
-        color: #fff;
-        font-family: var(--f-main);
-        height: 100vh;
-        overflow: hidden;
-      }
-
-      /* --- Layout --- */
-      .app-container {
-        display: grid;
-        grid-template-columns: var(--sidebar-w) 1fr;
-        width: 100%;
-        height: 100vh;
-      }
-
-      /* --- Sidebar (z-index: 10000) --- */
-      .sidebar {
-        background: var(--bg);
-        border-right: 1px solid #111;
-        padding: 60px 40px;
-        z-index: 10000;
-        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        position: relative;
-        height: 100vh;
-      }
-
-      .logo {
-        font-family: var(--f-deco);
-        font-size: 48px;
-        color: var(--accent);
-        margin-bottom: 60px;
-      }
-
-      .pc-nav {
-        list-style: none;
-      }
-
-      .alb-link {
-        margin-bottom: 25px;
-        font-size: 19px;
-        cursor: pointer;
-        transition: 0.4s;
-        opacity: 0.4;
-      }
-
-      .alb-link.active {
+      100% {
         opacity: 1;
-        color: var(--accent);
-        transform: translateX(10px);
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    .ent-logo {
+      font-family: var(--f-deco);
+      font-size: clamp(60px, 15vw, 90px);
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .ent-line-vert {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      margin: 0 auto 30px;
+    }
+
+    .ent-status {
+      font-family: sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.6em;
+      color: var(--accent);
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
+
+    .ent-text {
+      font-family: var(--f-main);
+      font-size: 16px;
+      line-height: 2;
+      color: #888;
+      margin-bottom: 60px;
+    }
+
+    .ent-enter-btn {
+      background: transparent;
+      border: 1px solid #333;
+      color: #fff;
+      padding: 18px 0;
+      width: 280px;
+      font-family: var(--f-main);
+      font-size: 13px;
+      letter-spacing: 0.5em;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+
+    .ent-enter-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(255, 0, 0, 0.05);
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      .app-container {
+        display: block;
       }
 
-      /* --- Main View --- */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transform: translateX(-100%);
+        padding-top: 100px;
+        text-align: center;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .mobile-header,
+      .menu-trigger {
+        display: flex;
+      }
+
       .main-view {
-        position: relative;
-        overflow-y: auto;
-        padding-bottom: 150px;
-        background: #000;
-        height: 100vh;
+        padding-top: 70px;
+        height: calc(100vh - 110px);
       }
 
       .hero-section {
-        position: relative;
-        width: 100%;
-        height: 55vh;
-        display: flex;
-        align-items: flex-end;
-        padding: 0 10% 80px;
-      }
-
-      .hero-img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0.3;
-        filter: grayscale(1);
-      }
-
-      .hero-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to bottom, transparent 0%, #000 98%);
-      }
-
-      .hero-content {
-        position: relative;
-        z-index: 10;
-        width: 100%;
-      }
-
-      .hero-content .meta {
-        font-size: 12px;
-        color: var(--accent);
-        letter-spacing: 8px;
-        margin-bottom: 20px;
-        text-transform: uppercase;
-        font-weight: 600;
+        height: 45vh;
+        text-align: center;
+        justify-content: center;
       }
 
       .hero-content h1 {
-        font-family: var(--f-deco);
-        font-size: 88px;
-        line-height: 0.95;
-        color: #fff;
-        letter-spacing: -1px;
+        font-size: 48px;
       }
 
       .track-list {
-        padding: 0 10%;
-        margin-top: 40px;
+        padding: 0 15px;
       }
 
-      .track-row {
-        border-bottom: 1px solid #111;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        padding: 22px 20px;
-        transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-      }
-
-      .track-row:hover {
-        background: rgba(255, 0, 0, 0.05);
-        padding-left: 35px;
-      }
-
-      .track-num {
-        width: 50px;
-        font-size: 14px;
-        color: #444;
-      }
-
-      .track-n {
-        font-size: 24px;
-        color: #eee;
-        flex-grow: 1;
-        font-weight: 300;
-      }
-
-      .is-playing .track-num,
-      .is-playing .track-n {
-        color: var(--accent) !important;
-        font-style: italic;
-      }
-
-      /* --- Mobile Header & Menu Trigger --- */
-      .mobile-header {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 70px;
-        background: rgba(0, 0, 0, 0.95);
-        z-index: 9000;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 25px;
-        border-bottom: 1px solid #111;
-      }
-
-      .logo-m {
-        font-family: var(--f-deco);
-        font-size: 24px;
-        color: var(--accent);
-        transition: 0.3s;
-      }
-
-      body.menu-open .logo-m {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      .menu-trigger {
-        display: none;
-        width: 30px;
-        height: 24px;
-        position: fixed;
-        top: 23px;
-        right: 25px;
-        cursor: pointer;
-        z-index: 11000;
-        flex-direction: column;
-        align-items: flex-end;
-        justify-content: center;
-      }
-
-      .bar {
-        height: 1.5px;
-        background: var(--accent);
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        position: absolute;
-      }
-
-      .bar-1 {
-        top: 7px;
-        width: 14px;
-      }
-
-      .bar-2 {
-        bottom: 7px;
-        width: 26px;
-      }
-
-      .menu-trigger.active .bar-1 {
-        width: 26px;
-        transform: translateY(4.5px) rotate(45deg);
-      }
-
-      .menu-trigger.active .bar-2 {
-        width: 26px;
-        transform: translateY(-4.5px) rotate(-45deg);
-      }
-
-      /* --- Player Bar (最前面に修正) --- */
       .player-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 110px;
-        background: #050505;
-        border-top: 1px solid #111;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 40px;
-        z-index: 12000;
-        /* 全ての要素（サイドバー含む）の最前面 */
-      }
-
-      .progress-rail {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: #111;
-        cursor: pointer;
-      }
-
-      .progress-bar {
-        height: 100%;
-        background: var(--accent);
-        width: 0%;
-      }
-
-      .info {
-        width: 300px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
-
-      .art-thumb {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        border: 1px solid #222;
-      }
-
-      .song-info div {
-        font-family: var(--f-deco);
-        font-size: 24px;
-        color: #fff;
-        margin-bottom: 2px;
-      }
-
-      .controls {
-        display: flex;
-        align-items: center;
-        gap: 40px;
-      }
-
-      .play-main {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: #fff;
-        border: none;
-        display: flex;
-        align-items: center;
+        padding: 0 15px;
+        flex-direction: column;
         justify-content: center;
-        cursor: pointer;
+        gap: 8px;
       }
 
-      .btn-func {
-        background: none;
-        border: none;
-        color: var(--accent);
-        cursor: pointer;
-        transition: 0.3s;
-        opacity: 0.4;
+      .player-bar .info {
+        display: none;
       }
 
-      .btn-func.active {
-        opacity: 1;
+      .player-bar .extra-ctrl {
+        width: 100%;
+        justify-content: center;
       }
 
-      .btn-skip {
-        background: none;
-        border: none;
-        color: #444;
-        cursor: pointer;
-      }
-
-      .extra-ctrl {
-        width: 300px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 20px;
-      }
-
-      input[type="range"] {
-        -webkit-appearance: none;
-        width: 70px;
-        height: 2px;
-        background: #222;
-        outline: none;
-      }
-
-      input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        width: 10px;
-        height: 10px;
-        background: var(--accent);
-        border-radius: 50%;
-        cursor: pointer;
-      }
-
-      /* --- Responsive --- */
-      @media (max-width: 768px) {
-        .app-container {
-          display: block;
-        }
-
-        .sidebar {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100vh;
-          transform: translateX(-100%);
-          padding-top: 100px;
-          text-align: center;
-        }
-
-        .sidebar.open {
-          transform: translateX(0);
-        }
-
-        .mobile-header,
-        .menu-trigger {
-          display: flex;
-        }
-
-        .main-view {
-          padding-top: 70px;
-          height: calc(100vh - 110px);
-        }
-
-        .hero-section {
-          height: 45vh;
-          padding: 0 20px 40px;
-          align-items: center;
-          text-align: center;
-          justify-content: center;
-        }
-
-        .hero-content h1 {
-          font-size: 48px;
-          line-height: 1.1;
-        }
-
-        .track-list {
-          padding: 0 15px;
-          margin-top: 20px;
-          text-align: left;
-        }
-
-        .track-row {
-          justify-content: center;
-          text-align: center;
-          padding: 22px 10px;
-        }
-
-        .track-num {
-          width: auto;
-          margin-right: 15px;
-        }
-
-        .track-n {
-          flex-grow: 0;
-        }
-
-        .player-bar {
-          padding: 0 15px;
-          height: 120px;
-          flex-direction: column;
-          justify-content: center;
-          gap: 8px;
-        }
-
-        .player-bar .info {
-          display: none;
-        }
-
-        .player-bar .extra-ctrl {
-          width: 100%;
-          justify-content: center;
-        }
-      }
-
-      /* --- Entrance Screen: Absolute Unity (完全統一版) --- */
-      #entranceOverlay {
-        position: fixed !important;
-        inset: 0 !important;
-        background: #000 !important; /* 漆黒で中身を完全に隠す */
-        z-index: 9999999 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        opacity: 1;
-        visibility: visible;
-        transition:
-          opacity 1s ease,
-          visibility 1s;
-      }
-
-      .entrance-inner {
-        text-align: center !important;
-        width: 90% !important;
-        /* PCでもスマホでも「ポスター」のような比率を保つための幅制限 */
-        max-width: 450px !important;
-        animation: entFadeUp 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      @keyframes entFadeUp {
-        0% {
-          opacity: 0;
-          transform: translateY(30px);
-          filter: blur(10px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-          filter: blur(0);
-        }
-      }
-
-      /* ロゴ：画像1枚目のあの「赤」と「フォント」を強制 */
-      .ent-logo {
-        font-family: "UnifrakturMaguntia", serif !important;
-        font-size: clamp(60px, 15vw, 90px) !important;
-        color: #ff0000 !important;
-        margin-bottom: 10px !important;
-        line-height: 1.1 !important;
-        letter-spacing: -2px !important;
-        display: block !important;
-      }
-
-      /* 垂直ライン */
-      .ent-line-vert {
-        width: 1px !important;
-        height: 60px !important;
-        background: linear-gradient(to bottom, #ff0000, transparent) !important;
-        margin: 0 auto 30px !important;
-      }
-
-      /* UNDER CONSTRUCTION */
-      .ent-status {
-        font-family: sans-serif !important;
-        font-size: 11px !important;
-        letter-spacing: 0.6em !important;
-        color: #ff0000 !important;
-        font-weight: bold !important;
-        margin-bottom: 25px !important;
-      }
-
-      /* 本文テキスト：1枚目の画像と同じ繊細な余白 */
-      .ent-text {
-        font-family: "Cormorant Garamond", serif !important;
-        font-size: 16px !important;
-        line-height: 2 !important;
-        color: #888 !important;
-        margin-bottom: 60px !important;
-      }
-
-      /* ボタン：1枚目の画像の「細いグレー枠」をPCでも出す */
-      .ent-enter-btn {
-        background: transparent !important;
-        border: 1px solid #333 !important;
-        color: #fff !important;
-        padding: 18px 0 !important;
-        width: 280px !important;
-        font-family: "Cormorant Garamond", serif !important;
-        font-size: 13px !important;
-        letter-spacing: 0.5em !important;
-        cursor: pointer !important;
-        margin: 0 auto !important;
-        display: block !important;
-        transition: all 0.4s !important;
-      }
-
-      /* ホバー時の反応（PCのみ有効） */
-      .ent-enter-btn:hover {
-        border-color: #ff0000 !important;
-        color: #ff0000 !important;
-        background: rgba(255, 0, 0, 0.05) !important;
-      }
-
-      /* 境界線は画像に合わせてシンプルに */
-      .btn-border {
-        display: none !important;
-      }
-
-      /* --- テキストの出し分け設定 --- */
-
-      /* デフォルトではPC用を消し、スマホ用を出す（スマホ優先） */
       .pc-text {
         display: none;
       }
+    }
+
+    @media (min-width: 769px) {
       .sp-text {
-        display: inline;
+        display: none;
       }
+    }
+  </style>
+</head>
 
-      /* PC（769px以上）の場合の切り替え */
-      @media screen and (min-width: 769px) {
-        .pc-text {
-          display: inline;
-        } /* PC用を表示 */
-        .sp-text {
-          display: none;
-        } /* スマホ用を隠す */
+<body>
+  <div id="entranceOverlay">
+    <div class="entrance-inner">
+      <div class="ent-logo">Rundfunk</div>
+      <div class="ent-line-vert"></div>
+      <div class="ent-info">
+        <div class="ent-status">UNDER CONSTRUCTION</div>
+        <p class="ent-text">
+          <span class="sp-text">本作品は現在制作中です。<br>オーディオプレイヤーを先行公開しています。</span>
+          <span class="pc-text">本作品は現在制作中です。<br>リンクの代替としてオーディオプレイヤーを公開しています。<br>【曲名選択で再生】音量にご注意ください。</span>
+        </p>
+      </div>
+      <button class="ent-enter-btn" onclick="terminateIntro()">ENTER</button>
+    </div>
+  </div>
 
-        /* 以前設定したモーダル内のスタイルを維持 */
-        .ent-text {
-          font-family: "Cormorant Garamond", serif !important;
-          font-size: 16px !important;
-          line-height: 2.2 !important;
-          color: #888 !important;
-          margin-bottom: 60px !important;
-          text-align: center !important;
-        }
-      }
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="logo">Rundfunk</div>
+      <ul id="pcLinks" class="pc-nav"></ul>
+    </aside>
 
-      /* スマホ版プレイヤー画面でのテキスト調整（必要であれば） */
-      @media screen and (max-width: 768px) {
-        .ent-text {
-          font-size: 14px;
-          line-height: 1.8;
-          color: #888;
-          padding: 20px;
-          text-align: center;
-        }
-      }
+    <main class="main-view">
+      <header class="mobile-header">
+        <div class="logo-m">Rundfunk</div>
+      </header>
 
-      /* --- スマホ版（768px以下）：スクロールを許可し、美しく見せる --- */
-      @media screen and (max-width: 768px) {
-        #entranceOverlay {
-          /* 1. 固定を維持しつつ、中身が溢れたらスクロールさせる */
-          overflow-y: auto !important;
-          /* 2. iOSなどのスマホで滑らかなスクロールを強制 */
-          -webkit-overflow-scrolling: touch;
-          /* 3. 上下の配置を「中央固定」から「上端基準」に変えて、下へ流れるようにする */
-          align-items: flex-start !important;
-          padding-top: 60px !important; /* スクロール開始位置の余白 */
-          padding-bottom: 80px !important; /* 最後の項目が隠れないための余白 */
-        }
+      <div class="menu-trigger" id="mt" onclick="toggleMenu()">
+        <div class="bar bar-1"></div>
+        <div class="bar bar-2"></div>
+      </div>
 
-        .entrance-inner {
-          /* 4. PC版のmax-widthを維持しつつ、縦に自由に伸びるようにする */
-          height: auto !important;
-          max-width: 400px !important;
-          margin: 0 auto !important;
-        }
-
-        /* 5. メニュー項目（ボタン）が増えた場合の間隔調整 */
-        .ent-enter-btn {
-          margin-bottom: 15px !important; /* 項目同士がくっつかないように */
-        }
-      }
-
-      /* --- スマホ版（768px以下）：展開メニューのスクロール化 --- */
-      @media screen and (max-width: 768px) {
-        /* メニュー全体のコンテナ */
-        .mobile-menu {
-          position: fixed !important;
-          inset: 0 !important;
-          background: #000 !important;
-          z-index: 999999 !important;
-
-          /* スクロールを許可する設定 */
-          overflow-y: auto !important;
-          -webkit-overflow-scrolling: touch; /* iOSの滑らかな操作用 */
-
-          /* レイアウト：中央寄せをやめ、上から順に並べる */
-          display: flex !important;
-          flex-direction: column !important;
-          justify-content: flex-start !important;
-          align-items: center !important;
-
-          /* 上下の余白：ロゴや最後の項目が隠れないように調整 */
-          padding-top: 80px !important;
-          padding-bottom: 60px !important;
-        }
-
-        /* 各メニュー項目 */
-        .menu-item {
-          margin-bottom: 30px !important; /* 項目間の適度な隙間 */
-          flex-shrink: 0 !important; /* 項目が潰れないように固定 */
-        }
-
-        /* 文字サイズ：項目が多い場合は少しだけ小さくして一覧性を確保 */
-        .menu-link {
-          font-family: "UnifrakturMaguntia", serif !important;
-          font-size: 28px !important;
-          color: #ff0000 !important;
-        }
-      }
-    </style>
-  </head>
-
-  <body id="body">
-    <div id="entranceOverlay">
-      <div class="entrance-inner">
-        <div class="ent-logo">Rundfunk</div>
-        <div class="ent-line-vert"></div>
-        <div class="ent-info">
-          <div class="ent-status">UNDER CONSTRUCTION</div>
-          <p class="ent-text">
-            <span class="sp-text">
-              本作品は現在制作中です。<br class="pc-only" />
-              リンクの代替として、こちらのオーディオプレイヤーサイトを公開しています。
-            </span>
-
-            <span class="pc-text">
-              本作品は現在制作中です。<br />
-              リンクの代替として、こちらのオーディオプレイヤーサイトを公開しています。<br />
-              【※曲名を選択すると音声が再生されます。】<br />音量にご注意ください。
-            </span>
-          </p>
+      <section class="hero-section">
+        <img id="hImg" class="hero-img" src="" alt="Album Art" />
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div id="hArt" class="meta">ARCHIVE</div>
+          <h1 id="hAlb">SELECT</h1>
         </div>
-        <button class="ent-enter-btn" onclick="terminateIntro()">
-          <span class="btn-label">ENTER</span>
-          <span class="btn-border"></span>
-        </button>
+      </section>
+      <div id="tList" class="track-list"></div>
+    </main>
+  </div>
+
+  <footer class="player-bar">
+    <div class="progress-rail" id="pRail">
+      <div class="progress-bar" id="pBar"></div>
+    </div>
+    <div class="info">
+      <img id="pImg" class="art-thumb" src="" alt="Thumbnail" />
+      <div class="song-info">
+        <div id="pTit">-</div>
       </div>
     </div>
-
-    <div id="mainApp" style="visibility: hidden; opacity: 0"></div>
-
-    <div class="app-container">
-      <aside class="sidebar" id="sidebar">
-        <div class="logo">Rundfunk</div>
-        <ul id="pcLinks" class="pc-nav"></ul>
-      </aside>
-
-      <main class="main-view">
-        <header class="mobile-header">
-          <div class="logo-m">Rundfunk</div>
-        </header>
-
-        <div class="menu-trigger" id="mt" onclick="toggleMenu()">
-          <div class="bar bar-1"></div>
-          <div class="bar bar-2"></div>
-        </div>
-
-        <section class="hero-section">
-          <img id="hImg" class="hero-img" src="" />
-          <div class="hero-overlay"></div>
-          <div class="hero-content">
-            <div id="hArt" class="meta">ARCHIVE</div>
-            <h1 id="hAlb">SELECT</h1>
-          </div>
-        </section>
-        <div id="tList" class="track-list"></div>
-      </main>
+    <div class="controls">
+      <button class="btn-skip" onclick="prev()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 6h2v12H6zm3.5 6L18 18V6z" />
+        </svg>
+      </button>
+      <button class="play-main" onclick="togglePlay()">
+        <svg id="pIcon" width="22" height="22" viewBox="0 0 24 24" fill="#000">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </button>
+      <button class="btn-skip" onclick="next()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 18l8.5-6L6 6zM16 6h2v12h-2z" />
+        </svg>
+      </button>
     </div>
+    <div class="extra-ctrl">
+      <button class="btn-func" id="shufBtn" onclick="toggleShuffle()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.45 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z" />
+        </svg>
+      </button>
+      <button class="btn-func" id="repBtn" onclick="toggleRepeat()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z" />
+        </svg>
+      </button>
+      <input type="range" id="vol" min="0" max="1" step="0.01" value="1" oninput="setVol(this.value)" />
+    </div>
+  </footer>
 
-    <footer class="player-bar">
-      <div class="progress-rail" id="pRail">
-        <div class="progress-bar" id="pBar"></div>
-      </div>
-      <div class="info">
-        <img id="pImg" class="art-thumb" src="" />
-        <div class="song-info">
-          <div id="pTit">-</div>
-        </div>
-      </div>
-      <div class="controls">
-        <button class="btn-skip" onclick="prev()">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M6 6h2v12H6zm3.5 6L18 18V6z" />
-          </svg>
-        </button>
-        <button class="play-main" onclick="togglePlay()">
-          <svg
-            id="pIcon"
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="#000"
-          >
-            <path d="M8 5v14l11-7z" />
-          </svg>
-        </button>
-        <button class="btn-skip" onclick="next()">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M6 18l8.5-6L6 6zM16 6h2v12h-2z" />
-          </svg>
-        </button>
-      </div>
-      <div class="extra-ctrl">
-        <button class="btn-func" id="shufBtn" onclick="toggleShuffle()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.45 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"
-            />
-          </svg>
-        </button>
-        <button class="btn-func" id="repBtn" onclick="toggleRepeat()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"
-            />
-          </svg>
-        </button>
-        <input
-          type="range"
-          id="vol"
-          min="0"
-          max="1"
-          step="0.01"
-          value="1"
-          oninput="setVol(this.value)"
-        />
-      </div>
-    </footer>
+  <audio id="audio"></audio>
 
-    <audio id="audio"></audio>
-
-    <script>
-      const data = [
-        {
-          name: "Radio Berlin",
-          artist: "Third Reich",
-          img: "img/album01.png",
-          songs: [
-            { n: "Die Fahne hoch!", s: "sound/g01.mp3" },
-            { n: "Badenweiler Marsch", s: "sound/g02.mp3" },
-            { n: "Parademarsch Der Legion Condor", s: "sound/g03.mp3" },
-            { n: "Wir Fahren Gegen Engeland", s: "sound/g04.mp3" },
-            { n: "Panzer Marsch", s: "sound/g05.mp3" },
-            { n: "Eine Jung Wachtposten (Lili Marleen)", s: "sound/g06.mp3" },
-            { n: "Die Fahne hoch! (instrumental)", s: "sound/g07.mp3" },
-          ],
-        },
-        {
-          name: "Radio London",
-          artist: "United Kingdom",
-          img: "img/album03.png",
-          songs: [
-            { n: "One, Two, Button Your Shoe", s: "sound/b01.mp3" },
-            { n: "Lord And Lady Whoozis", s: "sound/b04.mp3" },
-            { n: "Did You Mean It?", s: "sound/b03.mp3" },
-          ],
-        },
-        {
-          name: "Radio Paris",
-          artist: "French Republic",
-          img: "img/album04.png",
-          songs: [
-            { n: "Adieu Jolis Rêves D'Amour", s: "sound/f01.mp3" },
-            { n: "LamourEstCommeUneChanson", s: "sound/f02.mp3" },
-            { n: "Le Temps Des Cerises", s: "sound/f03.mp3" },
-          ],
-        },
-        {
-          name: "Radio Moscow",
-          artist: "Soviet Union",
-          img: "img/album05.png",
-          songs: [
-            { n: "Internationale", s: "sound/s01.mp3" },
-            { n: "25th Anniversary Song", s: "sound/s02.mp3" },
-            { n: "The Sacred War", s: "sound/s03.mp3" },
-          ],
-        },
-      ];
-
-      let cA = 0,
-        cT = 0,
-        isShuffle = false,
-        isRepeat = false;
-      const player = document.getElementById("audio");
-
-      function toggleMenu() {
-        document.getElementById("sidebar").classList.toggle("open");
-        document.getElementById("mt").classList.toggle("active");
-        document.getElementById("body").classList.toggle("menu-open");
+  <script>
+    const data = [
+      {
+        name: "Radio Berlin", artist: "Third Reich", img: "img/album01.png", songs: [
+          { n: "悪魔の歌 [mashup]", s: "sound/g01.mp3" },
+          { n: "ガイエルの黒い部隊 [mashup]", s: "sound/g02.mp3" }
+        ]
       }
+    ];
 
-      function setAlb(idx) {
-        cA = idx;
-        const a = data[idx];
-        document.getElementById("hImg").src = a.img;
-        document.getElementById("hAlb").innerText = a.name;
-        document.getElementById("hArt").innerText = a.artist;
+    let cA = 0, cT = 0, isShuffle = false, isRepeat = false;
+    const player = document.getElementById("audio");
 
-        const l = document.getElementById("tList");
-        l.innerHTML = "";
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("open");
+      document.getElementById("mt").classList.toggle("active");
+    }
 
-        a.songs.forEach((s, i) => {
-          const r = document.createElement("div");
-          r.className = "track-row";
-          r.id = `tr-${idx}-${i}`;
-          r.innerHTML = `<div class="track-num">${(i + 1).toString().padStart(2, "0")}</div><div class="track-n">${s.n}</div>`;
+    function setAlb(idx) {
+      cA = idx;
+      const a = data[idx];
+      document.getElementById("hImg").src = a.img;
+      document.getElementById("hAlb").innerText = a.name;
+      document.getElementById("hArt").innerText = a.artist;
 
-          // 【修正点】ここから toggleMenu() を削除しました
-          r.onclick = () => {
-            play(idx, i);
-          };
+      const l = document.getElementById("tList");
+      l.innerHTML = "";
 
-          l.appendChild(r);
-        });
+      a.songs.forEach((s, i) => {
+        const r = document.createElement("div");
+        r.className = "track-row";
+        r.id = `tr-${idx}-${i}`;
+        r.innerHTML = `<div class="track-num">${(i + 1).toString().padStart(2, "0")}</div><div class="track-n">${s.n}</div>`;
+        r.onclick = () => play(idx, i);
+        l.appendChild(r);
+      });
 
-        // サイドバーのハイライト管理
-        document
-          .querySelectorAll(".alb-link")
-          .forEach((el, i) => el.classList.toggle("active", i === idx));
+      document.querySelectorAll(".alb-link").forEach((el, i) => el.classList.toggle("active", i === idx));
 
-        if (!player.src || player.paused) {
-          player.src = a.songs[0].s;
-          cT = 0;
-          updateUI();
-        }
-      }
-
-      window.onload = () => {
-        data.forEach((alb, i) => {
-          const li = document.createElement("li");
-          li.className = "alb-link";
-          li.innerText = alb.name;
-
-          // 【修正点】アルバムを選んだ時だけ、スマホならメニューを閉じる
-          li.onclick = () => {
-            setAlb(i);
-            if (window.innerWidth <= 768) toggleMenu();
-          };
-
-          document.getElementById("pcLinks").appendChild(li);
-        });
-        setAlb(0);
-      };
-
-      function play(ai, si) {
-        cA = ai;
-        cT = si;
-        player.src = data[ai].songs[si].s;
-        player.play();
+      // If nothing is playing, load the first track of selected album
+      if (!player.src || player.paused) {
+        player.src = a.songs[0].s;
+        cT = 0;
         updateUI();
       }
-      function updateUI() {
-        const s = data[cA].songs[cT];
-        document.getElementById("pTit").innerText = s.n;
-        document.getElementById("pImg").src = data[cA].img;
-        document.getElementById("pIcon").innerHTML = player.paused
-          ? '<path d="M8 5v14l11-7z"/>'
-          : '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-        document
-          .querySelectorAll(".track-row")
-          .forEach((r) => r.classList.remove("is-playing"));
-        const tr = document.getElementById(`tr-${cA}-${cT}`);
-        if (tr) tr.classList.add("is-playing");
-      }
+    }
 
-      function togglePlay() {
-        if (!player.src) return;
-        player.paused ? player.play() : player.pause();
-        updateUI();
-      }
-      function next() {
-        let nT = isShuffle
-          ? Math.floor(Math.random() * data[cA].songs.length)
-          : cT < data[cA].songs.length - 1
-            ? cT + 1
-            : isRepeat
-              ? 0
-              : -1;
-        if (nT !== -1) play(cA, nT);
-      }
-      function prev() {
-        cT > 0
-          ? play(cA, cT - 1)
-          : isRepeat
-            ? play(cA, data[cA].songs.length - 1)
-            : null;
-      }
-      function toggleShuffle() {
-        isShuffle = !isShuffle;
-        document
-          .getElementById("shufBtn")
-          .classList.toggle("active", isShuffle);
-      }
-      function toggleRepeat() {
-        isRepeat = !isRepeat;
-        document.getElementById("repBtn").classList.toggle("active", isRepeat);
-      }
-      function setVol(v) {
-        player.volume = v;
-      }
+    function play(ai, si) {
+      cA = ai;
+      cT = si;
+      player.src = data[ai].songs[si].s;
+      player.play();
+      updateUI();
+    }
 
-      player.onended = () => next();
-      player.ontimeupdate = () => {
-        if (player.duration)
-          document.getElementById("pBar").style.width =
-            (player.currentTime / player.duration) * 100 + "%";
-      };
+    function updateUI() {
+      const s = data[cA].songs[cT];
+      document.getElementById("pTit").innerText = s.n;
+      document.getElementById("pImg").src = data[cA].img;
+      document.getElementById("pIcon").innerHTML = player.paused
+        ? '<path d="M8 5v14l11-7z"/>'
+        : '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
 
-      document.getElementById("pRail").onclick = (e) => {
-        if (player.src)
-          player.currentTime =
-            player.duration * (e.offsetX / e.currentTarget.offsetWidth);
-      };
+      document.querySelectorAll(".track-row").forEach(r => r.classList.remove("is-playing"));
+      const tr = document.getElementById(`tr-${cA}-${cT}`);
+      if (tr) tr.classList.add("is-playing");
+    }
 
-      window.onload = () => {
-        data.forEach((alb, i) => {
-          const li = document.createElement("li");
-          li.className = "alb-link";
-          li.innerText = alb.name;
-          li.onclick = () => setAlb(i);
-          document.getElementById("pcLinks").appendChild(li);
-        });
-        setAlb(0);
-      };
+    function togglePlay() {
+      if (!player.src) return;
+      player.paused ? player.play() : player.pause();
+      updateUI();
+    }
 
-      function terminateIntro() {
-        const intro = document.getElementById("entranceOverlay");
-        if (!intro) return;
+    function next() {
+      let nT = isShuffle
+        ? Math.floor(Math.random() * data[cA].songs.length)
+        : (cT < data[cA].songs.length - 1 ? cT + 1 : (isRepeat ? 0 : -1));
+      if (nT !== -1) play(cA, nT);
+    }
 
-        // 1. フェードアウト開始
-        intro.style.opacity = "0";
+    function prev() {
+      if (cT > 0) play(cA, cT - 1);
+      else if (isRepeat) play(cA, data[cA].songs.length - 1);
+    }
 
-        // 2. 透明になった瞬間、背後のクリックを可能にする
-        intro.style.pointerEvents = "none";
+    function toggleShuffle() {
+      isShuffle = !isShuffle;
+      document.getElementById("shufBtn").classList.toggle("active", isShuffle);
+    }
 
-        // 3. アニメーション完了後にDOMから削除（メモリ節約）
-        setTimeout(() => {
-          intro.remove();
-        }, 1000);
-      }
-    </script>
-  </body>
+    function toggleRepeat() {
+      isRepeat = !isRepeat;
+      document.getElementById("repBtn").classList.toggle("active", isRepeat);
+    }
+
+    function setVol(v) { player.volume = v; }
+
+    player.onended = () => next();
+    player.onplay = () => updateUI();
+    player.onpause = () => updateUI();
+    player.ontimeupdate = () => {
+      if (player.duration)
+        document.getElementById("pBar").style.width = (player.currentTime / player.duration) * 100 + "%";
+    };
+
+    document.getElementById("pRail").onclick = (e) => {
+      if (player.src)
+        player.currentTime = player.duration * (e.offsetX / e.currentTarget.offsetWidth);
+    };
+
+    function terminateIntro() {
+      const intro = document.getElementById("entranceOverlay");
+      intro.style.opacity = "0";
+      intro.style.pointerEvents = "none";
+      setTimeout(() => intro.remove(), 1000);
+    }
+
+    // Single initialization point
+    window.addEventListener('DOMContentLoaded', () => {
+      const linkContainer = document.getElementById("pcLinks");
+      data.forEach((alb, i) => {
+        const li = document.createElement("li");
+        li.className = "alb-link";
+        li.innerText = alb.name;
+        li.onclick = () => {
+          setAlb(i);
+          if (window.innerWidth <= 768) toggleMenu();
+        };
+        linkContainer.appendChild(li);
+      });
+      setAlb(0);
+    });
+  </script>
+</body>
+
 </html>
